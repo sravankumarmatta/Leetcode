@@ -1,0 +1,23 @@
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        
+        n = len(nums)
+        
+        if nums[0] > target:
+            i = n-1
+            flag = -1
+        
+        else:
+            i=0
+            flag = 1
+            
+        while 0<=i<=n-1 and (nums[i]!=target):
+            i+=flag
+            
+          
+        return i if 0<=i<=n-1 else -1
