@@ -1,0 +1,28 @@
+class Solution(object):
+    
+    def perms(self, l, c):
+        if len(c)==self.n:
+            self.ans.append(c)
+            return
+        for i,j in enumerate(l):
+            k=c+[j]
+            m=l[0:i]+l[i+1:]
+            self.perms (m,k)
+        
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        self.ans = []
+        self.n = len(nums)
+        
+        
+        for i,j in enumerate(nums):
+            c = [j]
+            l=nums[0:i]+nums[i+1:]
+            self.perms(l,c)
+        
+        return self.ans
+        
+        
