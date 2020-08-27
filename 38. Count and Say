@@ -1,0 +1,35 @@
+class Solution(object):
+    def countAndSay(self, n):
+        """
+        :type n: int
+        :rtype: str
+        """
+        if n==1:
+            return '1'
+        
+        s = '1'
+        
+        while n-1:
+            
+            a=''
+            count = 0
+            p=''
+            
+            for i in s:
+                if not a:
+                    a=i
+                    count+=1
+                    
+                elif a==i: count+=1
+                    
+                else:
+                    p = p + str(count) +a
+                    a=i
+                    count=1
+            
+            p = p + str(count) +a
+            n-=1
+            s=p
+            
+            
+        return s
