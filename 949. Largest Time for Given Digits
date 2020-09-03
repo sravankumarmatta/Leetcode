@@ -1,0 +1,29 @@
+from itertools import permutations
+
+class Solution(object):
+    def largestTimeFromDigits(self, A):
+        """
+        :type A: List[int]
+        :rtype: str
+        """
+        
+        l = list(permutations(A))
+        
+        mt = [-1,-1,-1,-1]
+        
+        
+        for time in l:
+            hours = time[0]*10+time[1]
+            minutes = time[2]*10+time[3]
+            
+            if hours < 24 and minutes<60:
+                
+                mt = max(mt,time)
+                
+                
+        s = str(mt[0])+str(mt[1])+':'+str(mt[2])+str(mt[3])
+        
+        return s if s!="-1-1:-1-1" else ""
+            
+            
+        

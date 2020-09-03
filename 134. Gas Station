@@ -1,0 +1,25 @@
+class Solution(object):
+    def canCompleteCircuit(self, gas, cost):
+        """
+        :type gas: List[int]
+        :type cost: List[int]
+        :rtype: int
+        """
+        diff = []
+        
+        n = len(gas)
+        
+        diff =[gas[i]-cost[i] for i in range(n)]
+        
+        prefix_sum, max_next_sum,s = 0, 0, sum(diff)
+        
+        for i in range(n):
+            if s-prefix_sum>=max_next_sum:
+                index = i 
+                max_next_sum = s-prefix_sum
+                
+            prefix_sum+=diff[i]
+            
+        return index if s>=0 else -1
+        
+        
