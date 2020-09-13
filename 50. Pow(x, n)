@@ -1,0 +1,30 @@
+class Solution(object):
+    cache = {}
+    def myPow(self, x, n):
+        """
+        :type x: float
+        :type n: int
+        :rtype: float
+        """
+        
+        
+        if n==0:return 1
+        
+        if (x,n) in self.cache:
+            return self.cache[(x,n)]
+        
+        if n%2==0:
+            if n>0:
+                self.cache[(x,n)] = self.myPow(x,n/2)*self.myPow(x,n/2)
+            else:
+                self.cache[(x,n)] = self.myPow(x,n/2)*self.myPow(x,n/2)
+        
+        else:
+            if n>0:
+                self.cache[(x,n)] = self.myPow(x,n/2)*self.myPow(x,n/2)*x
+            else:
+                self.cache[(x,n)] = self.myPow(x,(n/2)+1)*self.myPow(x,(n/2)+1)*(1/x)
+                
+        return self.cache[(x,n)]
+                
+            
