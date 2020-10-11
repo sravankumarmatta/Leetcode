@@ -1,0 +1,40 @@
+class Solution:
+    def helper(self, s):
+        if not s:
+            return 1
+        if s in self.d:
+            return self.d[s]
+        
+        if s[0] == '0':
+            return 0
+        
+        if s[0]!='0':
+            l = self.helper(s[1:])
+            self.d[s]+=l
+                
+        if 10<=int(s[:2])<=26:
+            l = self.helper(s[2:])
+            self.d[s]+=l
+                    
+             
+        return self.d[s]
+        
+    def numDecodings(self, s: str) -> int:
+        from collections import defaultdict
+        self.d=defaultdict(int)
+        
+        if int(s) == 0:
+            return 0
+        
+        if s[0]!='0':
+
+            l = self.helper(s[1:])
+            self.d[s]+=l
+                
+        if 10<=int(s[:2])<=26:
+            l = self.helper(s[2:])   
+            self.d[s]+=l
+                
+             
+        return (self.d[s])
+            

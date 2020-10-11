@@ -1,0 +1,14 @@
+class Solution:
+    def kClosest(self, points: List[List[int]], K: int) -> List[List[int]]:
+        import math
+        
+        ans = []
+        
+        for i,j in points:
+            ans.append(([i,j],math.sqrt(i**2+j**2)))
+            
+        ans = sorted(ans,key = lambda x:x[1])
+        
+        a = [ans[k][0] for k in range(K)]
+        
+        return a
