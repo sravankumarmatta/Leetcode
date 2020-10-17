@@ -1,0 +1,10 @@
+class Solution:
+    def topKFrequent(self, words: List[str], k: int) -> List[str]:
+        from collections import Counter
+        
+        word_count = Counter(words)
+        
+        word_count = sorted(word_count.keys(),key = lambda x:(-1*word_count[x],x))
+        
+        return word_count[:k]
+        

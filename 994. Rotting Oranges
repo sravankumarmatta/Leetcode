@@ -1,0 +1,41 @@
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        fresh_orange = set()
+        rotten_orange = set()
+        
+        m = len(grid)
+        n = len(grid[0])
+        
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j]==1:
+                    fresh_orange.add((i,j))
+                    
+                elif grid[i][j]==2:
+                    rotten_orange.add((i,j))
+        count = 0            
+        while fresh_orange:
+            l = len(fresh_orange)
+            next_rotten_orange=set()
+            
+            for i,j in rotten_orange:
+                s = {(i-1,j),(i+1,j),(i,j-1),(i,j+1)}
+                next_rotten_orange.update(s)
+             
+            rotten_orange = set()
+            for i,j in next_rotten_orange:
+                if 0<=i<=m and 0<=j<=n and ((i,j) in fresh_orange):
+                    fresh_orange.remove((i,j))
+                    rotten_orange.add((i,j))
+                    
+            count+=1
+        
+            
+            k = len(fresh_orange)
+            
+            if l==k:
+                return -1
+            
+        return count
+            
+    
