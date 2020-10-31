@@ -1,0 +1,50 @@
+class Solution:
+    def calculate(self, s: str) -> int:
+        s =s.replace(" ","")
+        print(s)
+        sign = 1
+        stack = []
+        i=0
+        current_num = ''
+        n = len(s)
+        
+        while i<n:
+            if ord('0')<=ord(s[i])<=ord('9'):
+                while i<n and ord('0')<=ord(s[i])<=ord('9'):
+                    current_num+=s[i]
+                    i+=1
+                current_num = sign * int(current_num)
+                stack.append(current_num)
+                current_num = ''
+            
+            elif s[i]=='-':
+                sign = -1
+                i+=1
+            
+            elif s[i]=='+':
+                sign = 1
+                i+=1
+                
+            elif s[i] == '*':
+                i+=1
+                while i<n and ord('0')<=ord(s[i])<=ord('9'):
+                    current_num+=s[i]
+                    i+=1
+                current_num = int(current_num)
+                k = stack.pop(-1)
+                current_num = int(k*current_num)
+                stack.append(current_num)
+                current_num = ''
+                
+            elif s[i] == '/':
+                i+=1
+                while i<n and ord('0')<=ord(s[i])<=ord('9'):
+                    current_num+=s[i]
+                    i+=1
+                current_num = int(current_num)
+                k = stack.pop(-1)
+                current_num = int(k/current_num)
+                stack.append(current_num)
+                current_num = ''
+        
+        return int(sum(stack))
