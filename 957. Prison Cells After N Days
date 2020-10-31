@@ -1,0 +1,31 @@
+class Solution:
+    def prisonAfterNDays(self, cells: List[int], N: int) -> List[int]:
+        
+        d = {}
+        count = 0 
+        d[0] = cells
+        visited = set()
+        flag = None
+        
+        while count < N:
+            new_state = [0]
+            for i in range(1,7):
+                new_state.append(1 if d[count][i-1]== d[count][i+1] else 0)
+            new_state.append(0)
+            
+            new_state = tuple(new_state)
+            
+            if new_state in visited:
+                flag = count
+                break
+                
+            count+=1
+            d[count] = new_state
+            visited.add(new_state)
+            
+        if not flag:
+            return list(d[N])
+        
+        d[0] = d[flag]
+        
+        return list(d[N%flag])
