@@ -1,0 +1,32 @@
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        m = float('-inf')
+        curr_prod = 1
+        
+        last_neg = []
+        count = 0
+        
+        for num in nums:
+            if num == 0:
+                if curr_prod<0 and count > 1 :
+                    m = max(m,int(curr_prod/last_neg[0]))
+                    
+                m = max(m,0)
+                last_neg = []
+                count=0
+                curr_prod = 1
+                continue
+                    
+            curr_prod *= num
+            count+=1
+            m = max(m,curr_prod)
+                
+            if num<0:
+                last_neg.append(curr_prod)
+                
+        if curr_prod<0 and count>1 :
+            m = max(m,int(curr_prod/last_neg[0]))        
+        return m
+        
+                
+        

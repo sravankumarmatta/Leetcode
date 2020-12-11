@@ -1,0 +1,29 @@
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        ans = []
+        d = set()
+        
+        queue = [nums]
+        
+        
+        while queue:
+            q = queue.pop(0)
+            k = ''.join(str(n) for n in q)
+            #print(k)
+            if k in d: continue
+            
+            ans.append(q)
+            d.add(k)
+            
+            
+            n = len(q)
+            
+            for i in range(n-1):
+                queue.append(q[:i]+q[i+1:])
+                
+            if q[:-1]: queue.append(q[:-1])
+                
+        
+        ans.append([])
+        return ans

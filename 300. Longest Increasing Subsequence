@@ -1,0 +1,22 @@
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        ans =1
+        
+        d = {}
+        
+        n = len(nums)
+        
+        for i in range(n):
+            keys = d.keys()
+            d[nums[i]] = 1
+            for key in keys:
+                if key < nums[i]:
+                    d[nums[i]]=max(d.get(nums[i],1),d[key]+1)
+
+                
+                
+        return max(d.values())
+                
+                
+            
+            
