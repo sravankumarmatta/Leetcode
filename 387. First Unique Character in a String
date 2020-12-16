@@ -1,0 +1,16 @@
+class Solution:
+    def firstUniqChar(self, s: str) -> int:
+        d = {}
+        
+        for i in range(len(s)):
+            d[s[i]] = d.get(s[i],{'count':0,'index':0})
+            d[s[i]]['count']+=1
+            d[s[i]]['index'] = i
+            
+        ans = float('inf')
+            
+        for key in d:
+            if d[key]['count'] == 1 and d[key]['index']<ans:
+                ans = d[key]['index']
+                
+        return -1 if ans == float('inf') else ans

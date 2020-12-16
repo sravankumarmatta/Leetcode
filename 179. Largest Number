@@ -1,0 +1,13 @@
+class Solution:
+    def largestNumber(self, nums: List[int]) -> str:
+        nums = sorted(nums, key = lambda x : str(x)+str(x)+str(x),reverse=True)
+        
+        ans = ''
+      
+        for n in nums:
+            ans += str(n)
+       
+        
+        return str(int(ans))
+        
+       
