@@ -1,0 +1,42 @@
+class Solution:
+    def findPeakElement(self, nums: List[int]) -> int:
+        
+        n = len(nums)
+        if n<=1:
+            return 0
+        i = 0
+        peak = 0
+        
+        while i<n-1 and nums[i]==nums[i+1]:
+            i+=1
+        
+        if nums[i] < nums[i+1]:
+            peak = i+1
+            flag = 'increasing'
+            
+        if nums[i] > nums[i+1]:
+            flag = 'decreasing'
+            
+        while i<n-1:
+            if flag == 'increasing' and nums[i]>nums[i+1]:
+                if nums[i]>peak:
+                    peak = i
+                i+=1
+                flag = 'decreasing'
+                    
+            elif flag == 'decreasing' and nums[i]<nums[i+1]:
+                i+=1
+                flag = 'increasing'
+                
+            else:
+                i+=1
+                
+        if flag == 'increasing' and nums[-1]>nums[peak]:
+            return n-1
+                
+        return peak
+                
+                
+            
+                
+        
