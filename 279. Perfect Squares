@@ -1,0 +1,16 @@
+class Solution:
+    def numSquares(self, n: int) -> int:
+        import math
+        d = {}
+        curr = []
+        
+        for i in range(1,n+1):
+            if int(math.sqrt(i)+0.5)**2 == i:
+                d[i] = 1
+                curr.append(i)
+            else:
+                d[i]=min([1+d[i-k] for k in curr])
+        
+        
+                
+        return d[n]

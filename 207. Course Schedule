@@ -1,0 +1,36 @@
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        from collections import defaultdict
+        
+        neighbours = defaultdict()
+        from collections import defaultdict
+        
+        courses = set([i for i in range(numCourses)])
+        
+        neighbors = defaultdict(set)
+        prereq = defaultdict(set)
+        
+        for i,j in prerequisites:
+            neighbors[j].add(i)
+            prereq[i].add(j)
+            
+            if i in courses:
+                courses.remove(i)
+                
+        queue = list(courses)
+        
+        if not queue: return False
+        
+        count = 0
+        
+        while queue:
+            q = queue.pop(0)
+            count+=1
+            for neigh in neighbors[q]:
+                prereq[neigh].remove(q)
+                if len(prereq[neigh]) == 0:
+                    queue.append(neigh)
+                    
+        return True if count==numCourses else False
+                    
+            
