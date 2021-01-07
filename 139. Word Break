@@ -1,0 +1,29 @@
+class Solution:
+    def search(self,curr_word):
+        if curr_word in self.d:
+            return self.d[curr_word]
+        
+        if curr_word == "":
+            return True
+        
+        for word in self.wordDict:
+            n = len(word)
+            if curr_word[:n] == word:
+                self.d[curr_word[n:]] = self.search(curr_word[n:])
+                if self.d[curr_word[n:]]: return True
+                
+        return False
+    
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        self.d = {}
+        self.wordDict = wordDict
+        
+        for word in self.wordDict:
+            n = len(word)
+            
+            if s[:n] == word:
+                self.d[s[n:]] = self.search(s[n:])
+                if self.d[s[n:]]: return True
+                
+        return False
+        
