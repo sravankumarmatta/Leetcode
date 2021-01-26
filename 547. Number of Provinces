@@ -1,0 +1,23 @@
+class Solution:
+    def findCircleNum(self, M: List[List[int]]) -> int:
+        n = len(M)
+        cities = set([i for i in range(n)])
+        provinces = 0
+        
+        while cities:
+            curr_city = cities.pop()
+            provinces+=1
+            
+            queue = [curr_city]
+            
+            while queue:
+                q = queue.pop(0)
+                for i in range(n):
+                    if M[q][i] == 1 and i in cities:
+                        cities.remove(i)
+                        queue.append(i)
+                        
+                    
+                    
+        return provinces
+            
