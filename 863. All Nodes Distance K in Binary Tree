@@ -1,0 +1,92 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def nodes(self, node, n):
+        queue = [(node, 0)]
+        ans = []
+        while queue:
+            cnode = queue.pop(0)
+            if cnode[1] == n: 
+                ans.append(cnode[0].val)  
+            else:
+                if cnode[0].left and cnode[0].left not in self.path: 
+                    queue.append((cnode[0].left,cnode[1]+1))
+                if cnode[0].right and cnode[0].right not in self.path:
+                    queue.append((cnode[0].right,cnode[1]+1))
+            
+        
+        return ans
+        
+    def distanceK(self, root: TreeNode, target: TreeNode, K: int) -> List[int]:
+        
+        
+        path = [(root,0)]
+        visited = set()
+        self.target =target
+        
+        while path:
+            curr_node = path[-1][0]
+            curr_distance = path[-1][1]
+            
+            
+            if curr_node == target: break
+            if curr_node.left and curr_node.left not in visited:
+                path.append((curr_node.left,curr_distance+1))
+            elif curr_node.right and curr_node.right not in visited:
+                path.append((curr_node.right,curr_distance+1))    
+            else:
+                k = path.pop(-1)
+                visited.add(k[0])
+
+     
+                
+        
+            
+           
+        final_ans = []
+        
+        distance = path[-1][1]
+        
+        self.path = set()
+        for n1 in path:
+             self.path.add(n1[0])
+        
+     
+        
+        for node in path:
+            if distance-node[1]<=K:
+                ans = self.nodes(node[0],K-distance+node[1])
+              
+                #print(node[0].val,ans,K-distance+node[1])
+                final_ans = final_ans+ans
+        
+        
+        ans = self.nodes(target,K)
+        final_ans = final_ans+ans
+        
+        
+        final_ans = set(final_ans)
+        
+        
+        for node in path:
+            if distance-node[1]!=K and node[0].val in final_ans:
+                final_ans.remove(node[0].val)
+                
+     
+        return list(final_ans)
+        
+
+        
+            
+            
+            
+            
+                
+        
+        
+        
