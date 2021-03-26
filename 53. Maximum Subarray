@@ -1,0 +1,18 @@
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        prefix_sum = max_sum = float('-inf')
+        j = 0
+        n = len(nums)
+        
+        while j < n:
+            if prefix_sum < 0:
+                prefix_sum = nums[j]
+                
+            else:
+                prefix_sum+=nums[j]
+                
+            max_sum = max(max_sum, prefix_sum)
+            j+=1
+            
+        return max_sum
+        
