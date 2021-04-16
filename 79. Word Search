@@ -1,0 +1,34 @@
+class Solution:
+    def check(self,current_row,current_col, word):
+        
+        if self.board[current_row][current_col] == word[0]:
+            self.visited.add((current_row, current_col))
+            
+            if not word[1:]:
+                return True
+            
+            l = [(-1,0),(1,0),(0,-1),(0,1)]
+            
+            for i,j in l:
+                next_row = current_row+i
+                next_col = current_col+j
+                if ((next_row, next_col) not in self.visited) and 0<=next_row<self.m and 0<=next_col<self.n:
+                    if self.check(next_row, next_col, word[1:]): return True
+        
+       
+            self.visited.remove((current_row, current_col))
+        
+        return False
+        
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        self.visited = set()
+        self.board = board
+        self.m = len(board)
+        self.n = len(board[0])
+        
+        for row in range(self.m):
+            for col in range(self.n):
+                if self.check(row, col, word): return True
+                
+        return False
+        

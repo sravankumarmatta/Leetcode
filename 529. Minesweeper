@@ -1,0 +1,49 @@
+class Solution(object):
+    def updateBoard(self, board, click):
+        """
+        :type board: List[List[str]]
+        :type click: List[int]
+        :rtype: List[List[str]]
+        """
+        click_x, click_y = click
+        
+        if board[click_x][click_y] == 'M':
+            board[click_x][click_y] = 'X'
+            return board
+        
+        m = len(board)
+        n = len(board[0])
+        
+        queue = [(click_x, click_y)]
+        neighbors = [(-1,-1),(-1,0),(-1,1),(0,-1),(0,1),(1,-1),(1,0),(1,1)]
+        
+        while queue:
+            curr_x, curr_y = queue.pop(0)
+            curr_count = 0
+            next_queue = []
+            
+            if board[curr_x][curr_y] == 'E':
+            
+                for neigh_x, neigh_y in neighbors:
+                    next_x = curr_x + neigh_x
+                    next_y = curr_y + neigh_y
+                    
+                    if 0<=next_x<m and 0<=next_y<n:
+                        if board[next_x][next_y] == 'M':
+                            curr_count+=1
+                        
+                        else:
+                            next_queue.append((next_x, next_y))
+                            
+                if curr_count:
+                    board[curr_x][curr_y] = str(curr_count)
+                
+                else:
+                    board[curr_x][curr_y] = 'B'
+                    queue+=next_queue
+                    
+        return board
+                
+                
+                    
+                

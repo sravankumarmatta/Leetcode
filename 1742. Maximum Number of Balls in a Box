@@ -1,0 +1,30 @@
+class Solution(object):
+    def countBalls(self, lowLimit, highLimit):
+        """
+        :type lowLimit: int
+        :type highLimit: int
+        :rtype: int
+        """
+        from collections import defaultdict
+        
+        d = defaultdict(int)
+        
+        max_num = 0
+        
+        for num in range(lowLimit, highLimit+1):
+            current_sum = 0
+            
+            while num:
+                current_sum+=num%10
+                num = num//10
+            
+            
+            d[current_sum]+=1
+    
+            
+            max_num = max(max_num, d[current_sum])
+            
+                
+        return max_num
+                
+            

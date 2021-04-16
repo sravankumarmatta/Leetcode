@@ -1,14 +1,28 @@
-class TicTacToe:
+class TicTacToe(object):
+    
 
-    def __init__(self, n: int):
+    def __init__(self, n):
         """
         Initialize your data structure here.
+        :type n: int
         """
-        self.board = [[ 0 for i in range(n)] for j in range(n)]
+        from collections import defaultdict
+        
         self.n = n
         
+        self.matrix = [[None for i in range(n)] for j in range(n)]
+        
+        
+        self.d = {}
+        
+        self.d['row_sum'] = defaultdict(int)
+        self.d['col_sum'] = defaultdict(int)
+        self.d['diag_sum_left'] = 0
+        self.d['diag_sum_right'] = 0
+        
+        
 
-    def move(self, row: int, col: int, player: int) -> int:
+    def move(self, row, col, player):
         """
         Player {player} makes a move at ({row}, {col}).
         @param row The row of the board.
@@ -18,38 +32,36 @@ class TicTacToe:
                 0: No one wins.
                 1: Player 1 wins.
                 2: Player 2 wins.
+        :type row: int
+        :type col: int
+        :type player: int
+        :rtype: int
         """
+        p = 1 if player == 1 else -1
         
-        self.board[row][col] = player
-        
-        count = 0
-        
-        for i in range(self.n):
-            if self.board[row][i]==player: count+=1
+        if self.matrix[row][col] == None:
+            self.matrix[row][col] = player
             
-        if count == self.n: return player
-        
-        count = 0
-        
-        for i in range(self.n):
-            if self.board[i][col]==player: count+=1
+            self.d['row_sum'][row]+=p
+            self.d['col_sum'][col]+=p
             
-        if count == self.n: return player
+            if row == col:
+                self.d['diag_sum_left']+=p
+            
+            if row+col == self.n-1:
+                self.d['diag_sum_right']+=p
+                
+            k = self.n*p
+                
+            if self.d['row_sum'][row] == k or self.d['col_sum'][col] == k or self.d['diag_sum_left'] == k or self.d['diag_sum_right'] == k:
+                return player
         
-        if row == col:
-            count = 0
-            for i in range(self.n):
-                if self.board[i][i] == player: count+=1
-            if count == self.n: return player
-            
-        if row+col == self.n-1:
-            count = 0
-            for i in range(self.n):
-                if self.board[i][self.n-i-1] == player: count+=1
-            if count == self.n: return player
-            
         return 0
                 
+            
+                
+            
+            
             
         
 
