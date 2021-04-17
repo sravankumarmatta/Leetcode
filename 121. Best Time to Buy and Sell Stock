@@ -1,0 +1,15 @@
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        max_diff = 0
+        curr_diff = 0
+        
+        for i in range(1,len(prices)):
+            curr_diff+=prices[i]-prices[i-1]
+            max_diff = max(max_diff,curr_diff)
+            
+            if curr_diff<0:
+                curr_diff = 0
+                
+        return max_diff
+        
+        
