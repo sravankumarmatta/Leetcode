@@ -1,0 +1,30 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def check(self, root, val):
+        if not root : return True
+        
+        k1 = self.check(root.left, root.val)
+        k2 = self.check(root.right, root.val)
+        
+        if k1 and k2:
+            self.ans+=1
+        
+        
+        return True if root.val == val and k1 and k2 else False
+            
+    def countUnivalSubtrees(self, root: TreeNode) -> int:
+        if not root: return 0
+        self.ans = 0
+        p1 = self.check(root.left, root.val)
+        p2 = self.check(root.right, root.val)
+        
+        if p1 and p2:
+            self.ans+=1
+            
+        return self.ans
+        

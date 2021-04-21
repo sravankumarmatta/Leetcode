@@ -1,0 +1,32 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
+        if not root: return None
+        stack = [root]
+        ans = []
+        visited = set()
+        
+        while stack:
+            root = stack[-1]
+            while root.left and root.left not in visited:
+                stack.append(root.left)
+                root = root.left
+
+            ans.append(root.val)
+            k = stack.pop(-1)
+            visited.add(k)
+
+            if root.right:
+                stack.append(root.right)
+                
+        return ans
+            
+            
+        
+            
+        
